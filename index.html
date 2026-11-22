@@ -89,7 +89,7 @@ button.primary{color:#000}
   </div>
 </div>
 
-<label id="hapL" style="position:fixed;left:0;top:0;opacity:0;pointer-events:none"><input type="checkbox" switch tabindex="-1"></label>
+<label id="hapL" style="position:fixed;left:0;top:0;opacity:0.01;z-index:-1"><input type="checkbox" switch tabindex="-1"></label>
 <script>
 var KEY='dhikr-counter-v1';
 var DEF=[{name:'Astaghfirullah',target:1000},{name:'SubhanAllah',target:100},{name:'Alhamdulillah',target:100},{name:'Allahu Akbar',target:100}];
@@ -97,7 +97,7 @@ function defaults(){return {items:DEF.map(function(x){return {name:x.name,target
 function load(){try{var r=localStorage.getItem(KEY);if(r){var s=JSON.parse(r);if(s&&Array.isArray(s.items)&&s.items.length)return s;}}catch(e){}return defaults();}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 function buzz(p){try{if(navigator.vibrate){navigator.vibrate(p);return;}}catch(e){}iosTick(p);}
-function iosTick(p){var a=[].concat(p),t=0;for(var i=0;i<a.length;i++){if(i%2===0)setTimeout(hap,t);t+=a[i];}}
+function iosTick(p){var a=[].concat(p),t=0;for(var i=0;i<a.length;i++){if(i%2===0){if(t===0)hap();else setTimeout(hap,t);}t+=a[i];}}
 function hap(){try{document.getElementById('hapL').click();}catch(e){}}
 var S=load();
 function hapDef(){return {tick:true,alertAt:10,alertTicks:3,finish:true};}
